@@ -1,0 +1,8 @@
+{
+  "name": "double-choose",
+  "app_id": "d7b87cf4",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
