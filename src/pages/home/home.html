@@ -1,17 +1,40 @@
 <ion-header>
   <ion-navbar>
     <ion-title>志愿选择</ion-title>
+    <ion-buttons end>
+      <button [disabled]="selected===0" ion-button icon-right color="light" (click)="confirm()">
+        确认({{selected}}/3)
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="card-background-page">
+
+<ion-card *ngFor="let course of courses">
+  <img src="assets/imgs/nin-live.png"/>
+  <ion-card-content>
+    <ion-card-title>
+      {{course.title}}
+      </ion-card-title>
+    <p>
+      {{course.description}}
+    </p>
+    <span class="teacher">导师：{{course.teacher}}</span>
+  </ion-card-content>
+  <ion-row no-padding>
+    <ion-col text-left>
+        <ion-item>
+          <ion-label color="danger">{{course.period}}</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col text-right>
+        <ion-item>
+          <ion-toggle [disabled]="course.disabled" (ionChange)="onChecked(course)"
+          [(ngModel)]="course.isToggled"></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+</ion-card>
+
 </ion-content>

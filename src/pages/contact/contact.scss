@@ -1,3 +1,42 @@
 page-contact {
+    .fixed-content{
+        background-color:#488aff; 
+    }
+    .login-section{
+        position: absolute;
+        top:80px;
+        bottom: 80px;
+        left: 40px;
+        right: 40px;
+        background-color: #fff;
+        
+    }
+    .ng-valid[required], .ng-valid.required  {
+        border-left: 5px solid #42A948; /* green */
+    }
 
+    .ng-invalid:not(form)  {
+        border-left: 5px solid #a94442; /* red */
+    }
+    form{
+        margin-top:80px;
+        .form-group {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin-bottom: 15px;
+            input{
+                width:90%;
+                &.ipt {
+                    border: 1px solid #217ffa;
+                    border-radius:5px;
+                    padding-left:10px;
+                }
+                &.btn {
+                    background-color:#4dd8ff;
+                    color: #fff;
+                }
+            }
+        }
+    }
 }

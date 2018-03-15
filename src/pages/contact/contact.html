@@ -1,17 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      个人信息
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  <section class="login-section">
+    <form #loginForm="ngForm">
+      <div class="form-group">
+        <input type="text" class="form-control ipt" id="name" required placeholder="请输入用户名">
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control ipt" id="alterEgo" placeholder="请输入密码">
+      </div>
+
+      <div class="form-group">
+        <input type="submit" class="form-control btn" value="登陆">
+      </div>
+       <div class="form-group">
+        <input type="button" class="form-control btn" value="注册">
+      </div>
+
+    </form>
+  </section>
 </ion-content>
