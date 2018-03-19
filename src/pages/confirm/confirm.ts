@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import {Courses} from '../../app/models/Courses';
 /**
  * Generated class for the ConfirmPage page.
  *
@@ -12,7 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'confirm.html',
 })
 export class ConfirmPage {
-   selectedCourses: Array<Course>;
+   selectedCourses: Array<Courses>;
    constructor(public navCtrl: NavController,
      public navParams: NavParams) {
    	this.selectedCourses = [];

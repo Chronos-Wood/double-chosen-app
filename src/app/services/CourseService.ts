@@ -14,14 +14,14 @@ export class CourseService {
     }
 
     listCourses (): Observable<Courses[]> {
-    	
+    
     	
     	if (this.courses) {
     		return Observable.of(this.courses);
     	} else {
     		return this.http.get('assets/data/data.json')
-    		    .map(item => {
-    		    	this.courses =item.courses;
+    		    .map((item: any) => {
+    		    	this.courses = item.courses;
     		    	return item.courses;
     		    });
     	}
