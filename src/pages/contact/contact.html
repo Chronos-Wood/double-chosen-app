@@ -5,25 +5,48 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <section class="login-section">
-    <form #loginForm="ngForm">
-      <div class="form-group">
-        <input type="text" class="form-control ipt" id="name" required placeholder="请输入用户名">
-      </div>
-
-      <div class="form-group">
-        <input type="text" class="form-control ipt" id="alterEgo" placeholder="请输入密码">
-      </div>
-
-      <div class="form-group">
-        <input type="submit" class="form-control btn" value="登陆">
-      </div>
-       <div class="form-group">
-        <input type="button" class="form-control btn" value="注册">
-      </div>
-
-    </form>
+  <section class="person-info">
+    <section class="avatar">
+      <img src="assets/imgs/avatar-han.png" width="60" height="60">
+    </section>
+    <section class="band">
+      本杰明·巴顿
+    </section>
   </section>
+  <ion-list no-border>
+    <ion-list-header>
+      个人信息
+    </ion-list-header>
+    <ion-item tappable>
+      <ion-icon name='planet' item-start></ion-icon>
+      个人简介
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+    <ion-item tappable>
+      <ion-icon name='body' item-start></ion-icon>
+      兴趣爱好
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+    <ion-item tappable>
+      <ion-icon name='leaf' item-start></ion-icon>
+      获奖情况
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+    <ion-item tappable>
+      <ion-icon name='flask' item-start></ion-icon>
+      研究方向
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      志愿信息
+    </ion-list-header>
+    <ion-item tappable>
+      <ion-icon name='color-wand' item-start></ion-icon>
+      已选志愿
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
