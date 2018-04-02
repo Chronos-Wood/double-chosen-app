@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {tap} from 'rxjs/operators';
 import {Md5} from 'ts-md5/dist/md5'
 import {Storage} from '@ionic/storage';
-import {SignupForm} from "../../models/signupForm";
+import {RegisterForm} from "../../models/RegisterForm";
 
 /*
   Generated class for the UserProvider provider.
@@ -20,12 +20,12 @@ import {SignupForm} from "../../models/signupForm";
 export class UserProvider {
 
   salt: string;
-  user: any;
+  account: any;
 
   constructor(public http: HttpClient, private storage: Storage) {
     this.salt = "hasodifhsoifhosidfh";
-    this.storage.get("account")
-      .then(user => this.user = user)
+
+
   }
 
   loginAndCache(user: SigninForm): Observable<Result> {
@@ -43,7 +43,7 @@ export class UserProvider {
       .map((result) => result.body)
   }
 
-  signup(user: SignupForm): Observable<Result> {
+  signup(user: RegisterForm): Observable<Result> {
     let data: any = {
       accountVO: {
         userName: user.userName,
@@ -78,31 +78,36 @@ export class UserProvider {
       })
   }
 
-  updateUser(subject, infoStr) : Observable<Result> {
-    let role = this.user.role;
-    let url = Api.getUpdate(role);
-    let data = {};
-    const body = Api.transform(data[subject] = infoStr);
-    return this.http
-      .post<Result>(url, body, {
-        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded','tk': this.user.token})
-      })
+  updateUser(subject, infoStr) : Promise<Observable<Result>> {
+    return this.storage.get('account').then(account => {
+      let role = account.role;
+      let url = Api.getUpdate(role);
+      let data: any = {};
+      data[subject] = infoStr;
+      data.userName = account.userName;
+      const body = Api.transform(data);
+      return this.http
+        .post<Result>(url, body, {
+          headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded','tk': account.token})
+        })
+    })
   }
 
   getInfo() {
-    let role = this.user.role;
-    let token = this.user.token;
-    let username = this.user.userName;
-    let url = Api.getDetail(role);
-    const body = Api.transform({userName: username});
-    return this.http
-      .post<Result>(url, body, {
-        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
-      })
+    return this.storage.get('account').then(account => {
+      let role = account.role;
+      let token = account.token;
+      let username = account.userName;
+      let url = Api.getDetail(role);
+      const body = Api.transform({userName: username});
+      return this.http
+        .post<Result>(url, body, {
+          headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
+        })
+    })
   }
 
   private handleResponse(result) {
-    let data;
     let body = result.body;
     if (body && body.status === 10000) {
       this.storage.set("account", body.data);

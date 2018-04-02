@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController, NavParams} from 'ionic-angular';
-import {SignupForm} from '../../models/SignupForm';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserProvider} from "../../providers/user/UserService";
+import {RegisterForm} from "../../models/RegisterForm";
 
 /**
  * Generated class for the SignupPage page.
@@ -16,15 +16,15 @@ import {UserProvider} from "../../providers/user/UserService";
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  user: SignupForm;
-  signupForm: any;
+  user: RegisterForm;
+  form: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserProvider,
               public alertCtrl: AlertController) {
-    this.user = new SignupForm();
-    this.signupForm = new FormGroup({
+    this.user = new RegisterForm();
+    this.form = new FormGroup({
       'userName': new FormControl(this.user.userName, [
         Validators.required,
         Validators.maxLength(11)
@@ -41,30 +41,30 @@ export class SignupPage {
 
 
   get userName() {
-    return this.signupForm.get('userName');
+    return this.form.get('userName');
   }
 
   get password() {
-    return this.signupForm.get('password');
+    return this.form.get('password');
   }
   get repassword() {
-    return this.signupForm.get('repassword');
+    return this.form.get('repassword');
   }
   get name() {
-    return this.signupForm.get('name');
+    return this.form.get('name');
   }
   get sex() {
-    return this.signupForm.get('sex');
+    return this.form.get('sex');
   }
 
   get role() {
-    return this.signupForm.get('role');
+    return this.form.get('role');
   }
   get college() {
-    return this.signupForm.get('college');
+    return this.form.get('college');
   }
   get title() {
-    return this.signupForm.get('title');
+    return this.form.get('title');
   }
   signup() {
     this.userService.signup(this.user)

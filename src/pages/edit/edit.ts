@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 import {UserProvider} from "../../providers/user/UserService";
+import {observable} from "rxjs/symbol/observable";
 
 /**
  * Generated class for the EditPage page.
@@ -31,11 +32,13 @@ export class EditPage {
 
   confirm() {
     let subject = this.navParams.data.subject;
-    this.userService.updateUser(subject, this.infoStr).subscribe((result) => {
-      if (result && result.status === 10000) {
-        this.viewCtrl.dismiss(true);
-      }
-    });
+    this.userService.updateUser(subject, this.infoStr).then((observable => {
+      observable.subscribe((result) => {
+        if (result && result.status === 10000) {
+          this.viewCtrl.dismiss(true);
+        }
+      });
+    }))
 
   }
 }

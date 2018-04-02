@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController  } from 'ionic-angular';
+import { IonicPage, NavController,AlertController  } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { SigninForm } from '../../models/SigninForm';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserProvider } from '../../providers/user/UserService';
-import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the LoginPage page.

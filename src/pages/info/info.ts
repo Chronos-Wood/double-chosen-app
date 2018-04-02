@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { EditPage } from '../edit/edit'
-import {UserProvider} from "../../providers/user/UserService";
-import {Storage} from "@ionic/storage";
+import { UserProvider } from "../../providers/user/UserService";
+import { Storage } from "@ionic/storage";
+import {observable} from "rxjs/symbol/observable";
 
 /**
  * Generated class for the InfoPage page.
@@ -31,13 +32,15 @@ export class InfoPage {
   }
 
   ionViewDidLoad() {
-    this.userService.getInfo().subscribe((result)=> {
-      if (result.status === 10000) {
-        let user = result.data;
-        this.name = user.name;
-        this.sex = user.gender == 0? '男' : '女';
-        this.introduction = user.introduction || '这个人很懒，什么也没有留下';
-      }
+    this.userService.getInfo().then(observable => {
+      observable.subscribe((result)=> {
+        if (result.status === 10000) {
+          let user = result.data;
+          this.name = user.name;
+          this.sex = user.gender == 0? '男' : '女';
+          this.introduction = user.introduction || '这个人很懒，什么也没有留下';
+        }
+      })
     })
   }
 
@@ -48,6 +51,7 @@ export class InfoPage {
       subject: 'introduction',
   	});
     modal.onDidDismiss(data => {
+      console.log(data);
       if (data) {
         this.ionViewDidLoad();
       }

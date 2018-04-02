@@ -9,14 +9,14 @@ import {Storage} from "@ionic/storage";
 })
 export class ContactPage {
 
-  user: any;
+  userName: string;
 
   constructor(public navCtrl: NavController, private storage: Storage) {
   }
 
   ionViewDidLoad() {
     this.storage.get("account")
-        .then(user => this.user = user)
+        .then(account => this.userName = account.userName)
   }
 
   info() {

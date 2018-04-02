@@ -1,4 +1,4 @@
-export class SignupForm{
+export class RegisterForm{
   private _userName: string;
   private _role: string;
   private _password: string;
