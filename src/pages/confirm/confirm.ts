@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {Courses} from '../../app/models/Courses';
+import {Courses} from '../../models/Courses';
 /**
  * Generated class for the ConfirmPage page.
  *

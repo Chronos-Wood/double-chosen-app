@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CourseService } from '../../app/services/CourseService';
-import {Courses} from '../../app/models/Courses';
+import { CourseService } from '../../providers/course/CourseService';
+import {Courses} from '../../models/Courses';
 import { AlertController } from 'ionic-angular';
 
 import { ConfirmPage } from '../confirm/confirm'
@@ -10,7 +10,7 @@ import { ConfirmPage } from '../confirm/confirm'
   templateUrl: 'home.html'
 })
 export class HomePage {
-	
+
 	courses: Array<Courses>;
 	selectedCourses: Array<Courses>;
 	selected: number;
@@ -81,7 +81,7 @@ export class HomePage {
     	this.navCtrl.push(ConfirmPage, {
             selected: this.selectedCourses
         });
-    	
+
     }
 
 }

@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController  } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { SignupPage } from '../signup/signup';
+import { SigninForm } from '../../models/SigninForm';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserProvider } from '../../providers/user/UserService';
+import {Storage} from "@ionic/storage";
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -14,17 +20,55 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user: SigninForm;
+  loginForm: any;
+  constructor(public navCtrl: NavController,
+    public userService: UserProvider,
+    public alertCtrl: AlertController) {
+    this.user = new SigninForm();
+    this.user.role = '0';
+    this.loginForm = new FormGroup({
+        'userName': new FormControl(this.user.userName, [
+              Validators.required,
+              Validators.maxLength(11)
+        ]),
+            'password': new FormControl(this.user.password, Validators.required),
+            'role': new FormControl(this.user.role, Validators.required)
+      });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
 
   login () {
-  	this.navCtrl.push(TabsPage);
-  	this.navCtrl.setRoot(TabsPage);
+    this.userService.loginAndCache(this.user)
+        .subscribe(res => {
+          console.log(res);
+          if (res.status === 10000) {
+            this.navCtrl.push(TabsPage);
+            this.navCtrl.setRoot(TabsPage);
+
+          } else {
+            this.user.password = '';
+            this.showAlert(res.msg);
+          }
+        })
+  }
+  signup() {
+     this.navCtrl.push(SignupPage);
+  }
+
+  get userName() { return this.loginForm.get('userName'); }
+
+  get password() { return this.loginForm.get('password'); }
+
+  get role() { return this.loginForm.get('role'); }
+
+  showAlert(message) {
+    let alert = this.alertCtrl.create({
+      title: '登录失败',
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

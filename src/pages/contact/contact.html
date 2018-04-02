@@ -11,14 +11,16 @@
       <img src="assets/imgs/avatar-han.png" width="60" height="60">
     </section>
     <section class="band">
-      本杰明·巴顿
+      <div *ngIf="user">
+        {{user.userName}}
+      </div>
     </section>
   </section>
   <ion-list no-border>
     <ion-list-header>
       个人信息
     </ion-list-header>
-    <ion-item tappable>
+    <ion-item tappable (tap)="info()">
       <ion-icon name='planet' item-start></ion-icon>
       个人简介
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>

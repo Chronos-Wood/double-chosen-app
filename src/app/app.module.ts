@@ -1,5 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
@@ -9,11 +11,15 @@ import { HomePage } from '../pages/home/home';
 import { ConfirmPage } from '../pages/confirm/confirm';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
+import { SignupPage } from '../pages/signup/signup'
+import { InfoPage } from '../pages/info/info'
+import { EditPage } from '../pages/edit/edit'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule }    from '@angular/common/http';
-import { CourseService } from './services/CourseService'
+import { CourseService } from '../providers/course/CourseService'
+import { UserProvider } from '../providers/user/UserService';
 
 @NgModule({
   declarations: [
@@ -23,11 +29,16 @@ import { CourseService } from './services/CourseService'
     HomePage,
     TabsPage,
     ConfirmPage,
-    LoginPage
+    LoginPage,
+    InfoPage,
+    EditPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -38,13 +49,17 @@ import { CourseService } from './services/CourseService'
     HomePage,
     TabsPage,
     ConfirmPage,
-    LoginPage
+    LoginPage,
+    InfoPage,
+    EditPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     CourseService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserProvider
   ]
 })
 export class AppModule {}
