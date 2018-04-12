@@ -1,5 +1,5 @@
-export class Result{
+export class Result<T>{
 	status: number
 	msg: string
-	data: any
+	data: T
 }

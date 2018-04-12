@@ -18,28 +18,28 @@
     <ion-list-header>
       个人信息
     </ion-list-header>
-    <ion-item tappable (tap)="info()">
+    <ion-item tappable (tap)="info('introduction')">
       <ion-icon name='planet' item-start></ion-icon>
       个人简介
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
-    <ion-item tappable>
+    <ion-item tappable (tap)="info('interest')" *ngIf="role === 0">
       <ion-icon name='body' item-start></ion-icon>
       兴趣爱好
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
-    <ion-item tappable>
+    <ion-item tappable  (tap)="info('awards')">
       <ion-icon name='leaf' item-start></ion-icon>
       获奖情况
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
-    <ion-item tappable>
+    <ion-item tappable (tap)="info('researchDirection')">
       <ion-icon name='flask' item-start></ion-icon>
       研究方向
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
   </ion-list>
-  <ion-list>
+  <ion-list *ngIf="role === 0">
     <ion-list-header>
       志愿信息
     </ion-list-header>
@@ -48,5 +48,9 @@
       已选志愿
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
+  </ion-list>
+
+  <ion-list no-border>
+    <button ion-button color="danger" block (tap)="logout()">注销登陆</button>
   </ion-list>
 </ion-content>

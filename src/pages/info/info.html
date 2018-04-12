@@ -6,20 +6,18 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>个人信息</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-card>
+  <ion-card *ngIf="action === 'introduction'">
     <ion-card-header>
       姓名
     </ion-card-header>
     <ion-card-content>
       {{name}}
     </ion-card-content>
-  </ion-card>
 
-  <ion-card>
     <ion-card-header>
       性别
     </ion-card-header>
@@ -27,7 +25,8 @@
       {{sex}}
     </ion-card-content>
   </ion-card>
-  <ion-card>
+
+  <ion-card *ngIf="action === 'introduction'">
     <ion-card-header>
       个人简介
     </ion-card-header>
@@ -35,6 +34,34 @@
       {{introduction}}
     </ion-card-content>
   </ion-card>
+  <ion-card *ngIf="action === 'interest'">
+    <ion-card-header>
+      兴趣爱好
+    </ion-card-header>
+    <ion-card-content style="height:300px">
+      {{interest}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="action === 'awards'">
+    <ion-card-header>
+      获奖情况
+    </ion-card-header>
+    <ion-card-content style="height:300px">
+      {{awards}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="action === 'researchDirection'">
+    <ion-card-header>
+      研究方向
+    </ion-card-header>
+    <ion-card-content style="height:300px">
+      {{researchDirection}}
+    </ion-card-content>
+  </ion-card>
+
+
   <div padding>
     <button ion-button color="primary" block (tap)="edit()">编辑
     </button>

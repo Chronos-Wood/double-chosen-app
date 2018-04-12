@@ -16,7 +16,7 @@
         第{{i + 1}}志愿:
       </ion-list-header>
       <ion-item>
-      {{course.title}}
+      {{course.name}}
       <button ion-button item-end (click)="sort(course, i)">
       	<ion-icon name="arrow-dropup"></ion-icon>
       </button>
@@ -24,5 +24,5 @@
 
     </ion-list>
   </section>
-   <button ion-button block>确认</button>
+   <button ion-button block (tap)="confirm()">确认</button>
 </ion-content>

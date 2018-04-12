@@ -6,93 +6,42 @@
     </button>
     <div class="toolbar-content toolbar-content-md">
       <ion-title class="title title-md">
-        <div class="toolbar-title toolbar-title-md">导师列表</div>
+        <div class="toolbar-title toolbar-title-md" *ngIf="role === 0">导师列表</div>
+        <div class="toolbar-title toolbar-title-md" *ngIf="role === 1">学生列表</div>
       </ion-title>
     </div>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <ion-list>
-
-    <ion-list-header>计算机与软件学院</ion-list-header>
-
-    <ion-item>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content  pullingText="下拉刷新..."
+  refreshingText="刷新中...">
+  </ion-refresher-content>
+  </ion-refresher>
+  <section *ngIf="role === 0">
+  <ion-list *ngFor="let key of getKeys(map)" (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)" >
+    <ion-list-header>{{key}}</ion-list-header>
+    <ion-item *ngFor="let value of map.get(key)" (tap)="detail(value)">
       <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-woody.png">
+        <img [src]="value.photoURL || 'assets/imgs/avatar-ts-woody.png'">
       </ion-avatar>
-      <h2>王海彬</h2>
-      <p>This town ain't big enough for the two of us!</p>
-      <ion-note item-end>3:43 pm</ion-note>
+      <h2>{{value.name}}</h2>
+      <p>{{value.introduction}}</p>
+      <ion-note item-end>{{value.tel}}</ion-note>
     </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-buzz.png">
-      </ion-avatar>
-      <h2>郑关胜</h2>
-      <p>My eyeballs could have been sucked from their sockets!</p>
-      <ion-note item-end>1:12 pm</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-jessie.png">
-      </ion-avatar>
-      <h2>刘文杰</h2>
-      <p>Well aren't you just the sweetest space toy I ever did meet!</p>
-      <ion-note item-end>10:03 am</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-potatohead.png">
-      </ion-avatar>
-      <h2>张健</h2>
-      <p>You're not turning me into a Mashed Potato.</p>
-      <ion-note item-end>5:47 am</ion-note>
-    </ion-item>
-
   </ion-list>
-
-  <ion-list>
-
-    <ion-list-header>大气科学学院</ion-list-header>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-hamm.png">
-      </ion-avatar>
-      <h2>Hamm</h2>
-      <p>You heard of Kung Fu? Well get ready for pork chop.</p>
-      <ion-note item-end>11:11 pm</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-slinky.png">
-      </ion-avatar>
-      <h2>Slinky Dog</h2>
-      <p>I may not be a smart dog, but I know what roadkill is.</p>
-      <ion-note item-end>8:54 pm</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-rex.png">
-      </ion-avatar>
-      <h2>Rex</h2>
-      <p>Were you scared? Tell me honestly.</p>
-      <ion-note item-end>7:22 am</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar-ts-bullseye.png">
-      </ion-avatar>
-      <h2>Bullseye</h2>
-      <p>Neigh!</p>
-      <ion-note item-end>2:08 am</ion-note>
-    </ion-item>
-
-  </ion-list>
+  </section>
+  <section *ngIf="role === 1">
+    <ion-list  (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)" >
+      <ion-list-header>学生</ion-list-header>
+      <ion-item *ngFor="let student of studentList" (tap)="detail(student)">
+        <ion-avatar item-start>
+          <img [src]="student.photoURL||'assets/imgs/avatar-ts-woody.png'">
+        </ion-avatar>
+        <h2>{{student.name}}</h2>
+        <p>{{student.introduction}}</p>
+        <ion-note item-end>{{student.gender === 0?'男': '女'}}</ion-note>
+      </ion-item>
+    </ion-list>
+  </section>
 </ion-content>

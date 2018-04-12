@@ -12,15 +12,15 @@
 <ion-content class="card-background-page">
 
 <ion-card *ngFor="let course of courses">
-  <img src="assets/imgs/nin-live.png"/>
+  <img [src]="course.previewIamge"/>
   <ion-card-content>
     <ion-card-title>
-      {{course.title}}
+      {{course.name}}
       </ion-card-title>
     <p>
       {{course.description}}
     </p>
-    <span class="teacher">导师：{{course.teacher}}</span>
+    <span *ngIf="course.director" class="teacher">导师：{{course.director.name}}</span>
   </ion-card-content>
   <ion-row no-padding>
     <ion-col text-left>

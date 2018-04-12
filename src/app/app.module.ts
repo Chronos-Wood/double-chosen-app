@@ -14,12 +14,14 @@ import { LoginPage } from '../pages/login/login'
 import { SignupPage } from '../pages/signup/signup'
 import { InfoPage } from '../pages/info/info'
 import { EditPage } from '../pages/edit/edit'
+import {DetailPage} from "../pages/detail/detail";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule }    from '@angular/common/http';
 import { CourseService } from '../providers/course/CourseService'
 import { UserProvider } from '../providers/user/UserService';
+import { TeacherProvider } from '../providers/teacher/TeacherService';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { UserProvider } from '../providers/user/UserService';
     LoginPage,
     InfoPage,
     EditPage,
-    SignupPage
+    SignupPage,
+    DetailPage
   ],
   imports: [
     BrowserModule,
@@ -52,14 +55,16 @@ import { UserProvider } from '../providers/user/UserService';
     LoginPage,
     InfoPage,
     EditPage,
-    SignupPage
+    SignupPage,
+    DetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     CourseService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserProvider
+    UserProvider,
+    TeacherProvider
   ]
 })
 export class AppModule {}

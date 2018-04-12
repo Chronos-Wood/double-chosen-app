@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Events, NavController} from 'ionic-angular';
 import { CourseService } from '../../providers/course/CourseService';
 import {Courses} from '../../models/Courses';
 import { AlertController } from 'ionic-angular';
 
 import { ConfirmPage } from '../confirm/confirm'
+import {Observable} from "rxjs/Observable";
+import {Result} from "../../models/Result";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,26 +16,39 @@ export class HomePage {
 	courses: Array<Courses>;
 	selectedCourses: Array<Courses>;
 	selected: number;
+	pageIndex:number = 0;
+	pageSize: number = 10;
     constructor(public navCtrl: NavController,
-    	public alertCtrl: AlertController,
-    	public courseService: CourseService) {
+    	          public alertCtrl: AlertController,
+    	          public courseService: CourseService,
+                public events: Events) {
     	this.courses = [];
     	this.selectedCourses = [];
     	this.selected = 0;
+    	this.events.subscribe("course_submit:success", ()=> {
+    	  this.clear();
+      })
     }
     ionViewDidLoad() {
-    	this.courseService.listCourses()
-    	    .subscribe(courses => this.courses = courses);
+    	this.courseService.listCourses(this.pageIndex, this.pageSize)
+          .then((observable: Observable<Result<Courses[]>>) => {
+            observable.subscribe(result => {
+              if (result.status === 10000) {
+                this.courses = result.data
+              }
+            });
+          })
+
     }
     onChecked (course) {
-    	if (course.isToggled) {
-    		this.selected += 1;
-    		this.selectedCourses.push(course);
-    	} else {
-    		this.selected -= 1;
-    		this.selectedCourses = this.selectedCourses
-    		    .filter(item => item.courseId !== course.courseId)
-    	}
+      if (course.isToggled) {
+        this.selected += 1;
+        this.selectedCourses.push(course);
+      } else {
+        this.selected -= 1;
+        this.selectedCourses = this.selectedCourses
+          .filter(item => item.id !== course.id)
+      }
     	this.checkMaxSelected();
     }
 
@@ -52,6 +67,15 @@ export class HomePage {
     		    .filter(course => course.disabled === true)
     		    .forEach(course => course.disabled = false)
     	}
+    }
+    clear() {
+      this.courses
+        .filter(course => {
+          if (course.disabled) {
+            course.disabled = false;
+          }
+          course.isToggled = false;
+        })
     }
     confirm () {
     	if (this.selected < 3) {

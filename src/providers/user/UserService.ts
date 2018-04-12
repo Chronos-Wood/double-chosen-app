@@ -9,6 +9,7 @@ import {tap} from 'rxjs/operators';
 import {Md5} from 'ts-md5/dist/md5'
 import {Storage} from '@ionic/storage';
 import {RegisterForm} from "../../models/RegisterForm";
+import {Events} from "ionic-angular";
 
 /*
   Generated class for the UserProvider provider.
@@ -22,20 +23,22 @@ export class UserProvider {
   salt: string;
   account: any;
 
-  constructor(public http: HttpClient, private storage: Storage) {
+  constructor(public http: HttpClient,
+              private storage: Storage,
+              private events: Events) {
     this.salt = "hasodifhsoifhosidfh";
 
 
   }
 
-  loginAndCache(user: SigninForm): Observable<Result> {
+  loginAndCache(user: SigninForm): Observable<Result<any>> {
 
     if (user.password) {
       user.password = Md5.hashStr(this.salt + user.password).toString();
     }
     const body = Api.transform(user);
     return this.http
-      .post<Result>(Api.signin, body, {
+      .post<Result<any>>(Api.signin, body, {
         headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Role': '1', 'UserName': '1',}),
         observe: 'response',
       })
@@ -43,7 +46,7 @@ export class UserProvider {
       .map((result) => result.body)
   }
 
-  signup(user: RegisterForm): Observable<Result> {
+  signup(user: RegisterForm): Observable<Result<any>> {
     let data: any = {
       accountVO: {
         userName: user.userName,
@@ -73,12 +76,12 @@ export class UserProvider {
     }
     const body = JSON.stringify(data);
     return this.http
-      .post<Result>(Api.signup, body, {
+      .post<Result<any>>(Api.signup, body, {
         headers: new HttpHeaders({'Content-Type': 'application/json'})
       })
   }
 
-  updateUser(subject, infoStr) : Promise<Observable<Result>> {
+  updateUser(subject, infoStr): Promise<Observable<Result<any>>> {
     return this.storage.get('account').then(account => {
       let role = account.role;
       let url = Api.getUpdate(role);
@@ -87,8 +90,8 @@ export class UserProvider {
       data.userName = account.userName;
       const body = Api.transform(data);
       return this.http
-        .post<Result>(url, body, {
-          headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded','tk': account.token})
+        .post<Result<any>>(url, body, {
+          headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': account.token})
         })
     })
   }
@@ -101,8 +104,27 @@ export class UserProvider {
       let url = Api.getDetail(role);
       const body = Api.transform({userName: username});
       return this.http
-        .post<Result>(url, body, {
+        .post<Result<any>>(url, body, {
           headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
+        })
+    })
+  }
+
+  listStudent(pageIndex, pageSize): Promise<Observable<Result<any>>> {
+    return this.storage.get('account').then(account => {
+      let role = account.role;
+      let token = account.token;
+      let url = Api.getList(role);
+      const body = Api.transform({offset: pageIndex, amount: pageSize});
+      return this.http.post<Result<any>>(url, body, {
+        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
+      })
+        .map((result: Result<any>) => {
+           if(result.status === 500100) {
+            this.storage.remove('account');
+            this.events.publish('user:logout');
+          }
+          return result;
         })
     })
   }
