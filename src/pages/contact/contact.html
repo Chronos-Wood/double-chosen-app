@@ -8,10 +8,10 @@
 <ion-content>
   <section class="person-info">
     <section class="avatar">
-      <img src="assets/imgs/avatar-han.png" width="60" height="60">
+      <img src="assets/imgs/double_choose.png" width="60" height="60">
     </section>
     <section class="band">
-        {{userName}}
+        {{userName}}({{label}})
     </section>
   </section>
   <ion-list no-border>
@@ -43,9 +43,14 @@
     <ion-list-header>
       志愿信息
     </ion-list-header>
-    <ion-item tappable>
+    <ion-item tappable (tap)="will()">
       <ion-icon name='color-wand' item-start></ion-icon>
-      已选志愿
+      志愿历史
+      <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
+    </ion-item>
+    <ion-item tappable (tap)="will()">
+      <ion-icon name='browsers' item-start></ion-icon>
+      选择结果
       <ion-icon name='ios-arrow-forward-outline' item-end></ion-icon>
     </ion-item>
   </ion-list>

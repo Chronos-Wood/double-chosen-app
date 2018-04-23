@@ -1,0 +1,33 @@
+<ion-header class="header header-md">
+  <ion-navbar class="toolbar toolbar-md statusbar-padding">
+    <div class="toolbar-background toolbar-background-md"></div>
+    <button class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md" ion-button="bar-button"><span class="button-inner"><ion-icon class="back-button-icon icon icon-md back-button-icon-md ion-md-arrow-back" role="img" aria-label="arrow back"></ion-icon><span class="back-button-text back-button-text-md"></span></span>
+      <div class="button-effect"></div>
+    </button>
+    <div class="toolbar-content toolbar-content-md">
+      <ion-title class="title title-md">
+        <div class="toolbar-title toolbar-title-md">导师列表</div>
+      </ion-title>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content  pullingText="下拉刷新..."
+                            refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <section>
+    <ion-list *ngFor="let key of getKeys(map)" (ionRefresh)="doRefresh($event)">
+      <ion-list-header>{{key}}</ion-list-header>
+      <ion-item *ngFor="let value of map.get(key)" (tap)="detail(value)">
+        <ion-avatar item-start>
+          <img [src]="value.photoURL || 'assets/imgs/avatar-ts-woody.png'">
+        </ion-avatar>
+        <h2>{{value.name}}</h2>
+        <p>{{value.introduction}}</p>
+        <ion-note item-end>{{value.tel}}</ion-note>
+      </ion-item>
+    </ion-list>
+  </section>
+</ion-content>

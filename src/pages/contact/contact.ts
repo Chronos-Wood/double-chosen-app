@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Events, NavController} from 'ionic-angular';
 import { InfoPage } from '../info/info'
 import {Storage} from "@ionic/storage";
+import {WillPage} from "../will/will";
 
 @Component({
   selector: 'page-contact',
@@ -11,6 +12,7 @@ export class ContactPage {
 
   userName: string;
   role: string;
+  label: string;
 
   constructor(public navCtrl: NavController, private storage: Storage, private events: Events) {
   }
@@ -20,6 +22,7 @@ export class ContactPage {
         .then(account => {
           this.userName = account.userName;
           this.role = account.role;
+          this.label = this.role == '0'? '学生用户':'教师用户';
         })
   }
 
@@ -29,6 +32,9 @@ export class ContactPage {
       role: this.role,
       action: action
     });
+  }
+  will() {
+    this.navCtrl.push(WillPage);
   }
 
   logout() {

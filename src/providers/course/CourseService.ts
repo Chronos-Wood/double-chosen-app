@@ -37,6 +37,24 @@ export class CourseService {
         })
     })
   }
+  listCoursesByDirector(pageIndex, pageSize): Promise<Observable<Result<Courses[]>>> {
+    return this.storage.get('account').then(account => {
+      let token = account.token;
+      let username = account.userName;
+      let url = Api.getProjectsByUserName(username);
+      const body = Api.transform({offset: pageIndex, amount: pageSize, directorName: username});
+      return this.http.post<Result<Courses[]>>(url, body, {
+        headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
+      })
+        .map((result: Result<Courses[]>) => {
+          if (result.status === 500101) {
+            this.storage.remove('account');
+            this.events.publish('user:logout');
+          }
+          return result;
+        })
+    })
+  }
 
   submitWill(selectedCourse): Promise<Observable<Result<number>>> {
     return this.storage.get('account').then(account => {

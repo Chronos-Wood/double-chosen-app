@@ -1,0 +1,27 @@
+page-will {
+  .top-banner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-image: url("/assets/imgs/zy.jpg");
+    background-size: cover;
+  }
+
+  .middle{
+    height: 50px;
+    box-shadow: 0 2px 7px 0 #dadada;
+    text-align: center;
+    line-height: 50px;
+    color: #488aff;
+    font-size:16px;
+  }
+  .empty{
+    text-align: center;
+    height: 120px;
+    line-height: 120px;
+    font-size: 19px;
+    color: #dadada;
+  }
+}

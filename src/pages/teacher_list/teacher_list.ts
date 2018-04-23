@@ -8,47 +8,30 @@ import {DetailPage} from "../detail/detail";
 import {UserProvider} from "../../providers/user/UserService";
 
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+  selector: 'teacher_list',
+  templateUrl: 'teacher_list.html'
 })
-export class AboutPage {
+export class TeacherListPage {
 
   pageIndex: number = 0;
   pageSize: number = 10;
-  role: number;
-  studentList: any;
   map: Map<string, Array<any>> = new Map();
 
   constructor(public navCtrl: NavController,
               private teacherService: TeacherProvider,
               private studentService: UserProvider,
               private storage: Storage) {
-    this.studentList = []
 
   }
 
   ionViewDidLoad() {
 
-    this.storage.get("account").then(account => {
-      this.role = account.role;
-      if (this.role === 0) {
-        this.teacherService.getTeacherList(this.pageIndex, this.pageSize)
-          .then((observable: Observable<Map<string, Array<any>>>) => {
-            observable.subscribe(map => {
-              this.map = map;
-            })
-          });
-      } else {
-        this.studentService.listStudent(this.pageIndex, this.pageSize)
-          .then((observable: Observable<Result<any>>) => {
-            observable.subscribe(result => {
-              if (result.status === 10000) {
-                this.studentList = result.data;
-              }
-            })
-          })
-      }
-    })
+    this.teacherService.getTeacherList(this.pageIndex, this.pageSize)
+      .then((observable: Observable<Map<string, Array<any>>>) => {
+        observable.subscribe(map => {
+          this.map = map;
+        })
+      });
   }
 
   doRefresh(refresher) {
@@ -69,16 +52,13 @@ export class AboutPage {
       })
   }
 
-  doPulling(refresher: Refresher) {
-    console.log('DOPULLING', refresher.progress);
-  }
 
   getKeys(map) {
     return Array.from(map.keys());
   }
 
   detail(value) {
-    value.role = this.role;
+    value.role = 1;
     this.navCtrl.push(DetailPage, value);
   }
 

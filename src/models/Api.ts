@@ -35,9 +35,23 @@ export class Api{
   static getProjects(){
 	  return this.project + '/list';
   }
+  static getProjectsByUserName(username){
+    return this.project + '/list/' + username;
+  }
 
   static submitWill() {
 	  return this.will + '/choose';
+  }
+  static getWillList(role) {
+    if (role === 0) {
+      return this.will + '/list/student';
+    } else {
+      return this.will + '/list/director';
+    }
+
+  }
+  static accept() {
+	  return this.will + '/accept';
   }
 
 	static transform (obj: any, exclude: string = 'repassword') {

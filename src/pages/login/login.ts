@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController,AlertController  } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+import { TabsPage } from '../tabs_student/tabs';
 import { SignupPage } from '../signup/signup';
 import { SigninForm } from '../../models/SigninForm';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserProvider } from '../../providers/user/UserService';
+import {TabsTeacherPage} from "../tabs-teacher/tabs-teacher";
 
 /**
  * Generated class for the LoginPage page.
@@ -42,8 +43,12 @@ export class LoginPage {
         .subscribe(res => {
           console.log(res);
           if (res.status === 10000) {
-            this.navCtrl.push(TabsPage);
-            this.navCtrl.setRoot(TabsPage);
+            if (this.user.role == '0') {
+              this.navCtrl.push(TabsPage);
+            } else {
+              this.navCtrl.push(TabsTeacherPage);
+            }
+
 
           } else {
             this.user.password = '';

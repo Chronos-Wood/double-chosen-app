@@ -6,8 +6,7 @@
     </button>
     <div class="toolbar-content toolbar-content-md">
       <ion-title class="title title-md">
-        <div class="toolbar-title toolbar-title-md" *ngIf="role === 0">导师列表</div>
-        <div class="toolbar-title toolbar-title-md" *ngIf="role === 1">学生列表</div>
+        <div class="toolbar-title toolbar-title-md">学生列表</div>
       </ion-title>
     </div>
   </ion-navbar>
@@ -18,21 +17,8 @@
   refreshingText="刷新中...">
   </ion-refresher-content>
   </ion-refresher>
-  <section *ngIf="role === 0">
-  <ion-list *ngFor="let key of getKeys(map)" (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)" >
-    <ion-list-header>{{key}}</ion-list-header>
-    <ion-item *ngFor="let value of map.get(key)" (tap)="detail(value)">
-      <ion-avatar item-start>
-        <img [src]="value.photoURL || 'assets/imgs/avatar-ts-woody.png'">
-      </ion-avatar>
-      <h2>{{value.name}}</h2>
-      <p>{{value.introduction}}</p>
-      <ion-note item-end>{{value.tel}}</ion-note>
-    </ion-item>
-  </ion-list>
-  </section>
-  <section *ngIf="role === 1">
-    <ion-list  (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)" >
+  <section>
+    <ion-list  (ionRefresh)="doRefresh($event)">
       <ion-list-header>学生</ion-list-header>
       <ion-item *ngFor="let student of studentList" (tap)="detail(student)">
         <ion-avatar item-start>
