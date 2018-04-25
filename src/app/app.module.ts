@@ -17,6 +17,7 @@ import { InfoPage } from '../pages/info/info'
 import { EditPage } from '../pages/edit/edit'
 import {DetailPage} from "../pages/detail/detail"
 import {WillPage} from "../pages/will/will";
+import { WillResultPage } from '../pages/will-result/will-result';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -46,7 +47,8 @@ import { TeacherWillPage } from "../pages/teacher-will/teacher-will";
     WillPage,
     TabsTeacherPage,
     TeacherCoursePage,
-    TeacherWillPage
+    TeacherWillPage,
+    WillResultPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { TeacherWillPage } from "../pages/teacher-will/teacher-will";
     WillPage,
     TabsTeacherPage,
     TeacherCoursePage,
-    TeacherWillPage
+    TeacherWillPage,
+    WillResultPage
   ],
   providers: [
     StatusBar,

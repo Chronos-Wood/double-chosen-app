@@ -3,6 +3,7 @@ import {Events, NavController} from 'ionic-angular';
 import { InfoPage } from '../info/info'
 import {Storage} from "@ionic/storage";
 import {WillPage} from "../will/will";
+import {WillResultPage} from '../will-result/will-result';
 
 @Component({
   selector: 'page-contact',
@@ -35,6 +36,9 @@ export class ContactPage {
   }
   will() {
     this.navCtrl.push(WillPage);
+  }
+  result() {
+    this.navCtrl.push(WillResultPage);
   }
 
   logout() {

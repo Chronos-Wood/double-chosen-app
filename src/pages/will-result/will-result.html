@@ -1,0 +1,35 @@
+<!--
+  Generated template for the WillResultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>志愿结果</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <section *ngIf="resData.length > 0">
+      <ion-card *ngFor="let item of resData">
+          <ion-card-header class="header">
+            {{item.projectName}}
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>导师：{{item.directorName}}</ion-item>
+            <ion-item>学生：{{item.studentName}}</ion-item>
+            <ion-item>志愿级别：{{item.precedence}}</ion-item>
+            <ion-item>志愿状态：已通过</ion-item>
+          </ion-card-content>
+        </ion-card>
+  </section>
+  <section class="empty" *ngIf="resData.length === 0">
+      无数据
+  </section>
+    
+
+</ion-content>

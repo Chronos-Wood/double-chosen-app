@@ -113,4 +113,25 @@ export class WillProvider {
       })
   }
 
+
+  fetchResult(pageIndex, pageSize): Promise<Observable<Result<any>>> {
+    return this.storage.get("account")
+      .then(account => {
+        let token = account.token;
+        let body = Api.transform({offset: pageIndex, amount: pageSize});
+        let url = Api.getWillResult();
+        return this.http.post<Result<any>>(url, body, {
+          headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'tk': token})
+        })
+        .map(result => {
+          if (result.status === 500101) {
+            this.storage.remove('account');
+            this.events.publish('user:logout');
+            return;
+          }
+          return result;
+        })
+      })
+  }
+
 }

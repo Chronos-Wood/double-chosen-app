@@ -27,8 +27,10 @@ export class UserProvider {
               private storage: Storage,
               private events: Events) {
     this.salt = "hasodifhsoifhosidfh";
+  }
 
-
+  getCurrentUser() {
+    return this.account;
   }
 
   loginAndCache(user: SigninForm): Observable<Result<any>> {

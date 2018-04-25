@@ -4,6 +4,7 @@ export class Api{
 	static teacher: string = 'http://localhost:8888/api/user/teacher';
 	static project: string = 'http://localhost:8888/api/project';
   static will: string = 'http://localhost:8888/api/will';
+  static result: string = 'http://localhost:8888/api/user/result';
 	static signin: string = Api.base + '/api/user/signin';
   static signup: string = Api.base + '/api/user/signup';
 
@@ -52,6 +53,9 @@ export class Api{
   }
   static accept() {
 	  return this.will + '/accept';
+  }
+  static getWillResult() {
+    return this.result + '/result';
   }
 
 	static transform (obj: any, exclude: string = 'repassword') {
