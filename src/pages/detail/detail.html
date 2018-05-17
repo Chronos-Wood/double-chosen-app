@@ -53,7 +53,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="user.role === 0">
+    <ion-row *ngIf="user.role === 1">
       <ion-col col-3>
         职称:
       </ion-col>
@@ -62,7 +62,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="user.role === 0">
+    <ion-row *ngIf="user.role === 1">
       <ion-col col-3>
         邮箱:
       </ion-col>
@@ -71,7 +71,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="user.role === 0">
+    <ion-row *ngIf="user.role === 1">
       <ion-col col-3>
         联系方式:
       </ion-col>
@@ -97,7 +97,7 @@
         {{user.researchDirection}}
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="user.role === 1">
+    <ion-row *ngIf="user.role === 0">
       <ion-col col-3>
         兴趣爱好:
       </ion-col>

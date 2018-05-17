@@ -1,10 +1,10 @@
 export class Api{
-	static base: string = 'http://localhost:8888';
-	static student: string = 'http://localhost:8888/api/user/student';
-	static teacher: string = 'http://localhost:8888/api/user/teacher';
-	static project: string = 'http://localhost:8888/api/project';
-  static will: string = 'http://localhost:8888/api/will';
-  static result: string = 'http://localhost:8888/api/user/result';
+	static base: string = 'http://139.199.34.188/double_choose';
+	static student: string = 'http://139.199.34.188/double_choose/api/user/student';
+	static teacher: string = 'http://139.199.34.188/double_choose/api/user/teacher';
+	static project: string = 'http://139.199.34.188/double_choose/api/project';
+  static will: string = 'http://139.199.34.188/double_choose/api/will';
+  static result: string = 'http://139.199.34.188/double_choose/api/user/result';
 	static signin: string = Api.base + '/api/user/signin';
   static signup: string = Api.base + '/api/user/signup';
 

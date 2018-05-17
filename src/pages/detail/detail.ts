@@ -22,6 +22,7 @@ export class DetailPage {
 
   ionViewDidLoad() {
     this.user = this.navParams.data;
+    console.log(this.user)
   }
 
 }
